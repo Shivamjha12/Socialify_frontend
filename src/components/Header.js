@@ -32,7 +32,7 @@ function Header({user}) {
       <Navbar style={{ background: "white" }}>
         <Container>
           <Navbar.Brand onClick={(e)=>{navigate('/')}}>
-            <img alt="" style={{ height: "45px", width:"45px"}} src={Logo} className="d-inline-block align-top" /> <p className="d-inline-block my-2 mx-2">HearLit</p>
+            <img alt="" style={{ height: "45px", width:"95px"}} src={Logo} className="d-inline-block align-top" /> <p className="d-inline-block my-2 mx-0">Socialify</p>
           </Navbar.Brand>
           <Row>
             <Col md={12}>
