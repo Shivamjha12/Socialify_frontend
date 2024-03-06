@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
 function Header({user}) {
     const navigate = useNavigate();
-    const production_url = 'https://hearlitpodcast.onrender.com';
+    const production_url = 'https://socialify-backend.onrender.com';
     async function handleLogout(e){
       e.preventDefault();
       const response = await fetch(`${production_url}/api-user/logout`,{
@@ -39,9 +39,13 @@ function Header({user}) {
             <Nav className="me-auto">
               {user!=="notUser"?(
               <>
-              <Nav.Link onClick={(e)=>{navigate('/mypodcasts')}}>Your Podcast</Nav.Link>
-              <Nav.Link onClick={(e)=>{navigate('/addpodcast')}}>Add Podcast</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate(`/`)}}>Feed</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate(`/profile/${user}`)}}>Profile</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate('/mypodcasts')}}>Your Post</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate('/mypodcasts')}}>Chat</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate('/addpodcast')}}>Add Post</Nav.Link>
               <Nav.Link onClick={(e)=>{navigate('/about')}}>About Us</Nav.Link>
+              
               <Nav.Link onClick={(e) =>{
                 handleLogout(e);
                 }}>Log out</Nav.Link>

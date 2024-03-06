@@ -8,7 +8,7 @@ function Login(){
     // const [jwt,setJwt]=useState('');
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
-    const production_url = 'https://hearlitpodcast.onrender.com';
+    const production_url = 'https://socialify-backend.onrender.com';
     const onSubmit = async (e)=>{
         e.preventDefault();
         const signupData = {
@@ -37,6 +37,7 @@ function Login(){
         
         // setJwt(content.jwt)
         // console.log(jwt)
+        console.log(content)
         Cookies.set('meraToken', content.jwt, { expires: 24*60*60 });
         // Cookies.set('jwt', jwt, { expires: 60 * 60 * 24 * 1, httpOnly: true });
         // console.log(content.jwt," here is the jwt-> ",jwt,"here is login page content");

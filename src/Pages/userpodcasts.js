@@ -4,9 +4,9 @@ import Header from '../components/Header';
 import { Form, Container, Row, Col, Button } from "react-bootstrap";
 function Userpodcasts({ user }) {
   const [userpodcasts, setUserpodcasts] = useState([]);
-  const production_url = 'https://hearlitpodcast.onrender.com';
+  const production_url = 'https://socialify-backend.onrender.com';
   async function getUserpodcasts() {
-    const response = await fetch(`${production_url}/api-podcast/podcast/user/${user}`);
+    const response = await fetch(`${production_url}/post/get_user_post/${user}`)
     const content = await response.json();
     setUserpodcasts(content);
     console.log(content);
@@ -38,7 +38,7 @@ function Userpodcasts({ user }) {
         })
       ) : (
         <div>
-          <h2>No Podcasts</h2>
+          <h2>No Posts</h2>
         </div>
       )}
 

@@ -9,16 +9,16 @@ function AboutPage({user}) {
       
       <h1>About Page</h1>
       <p>
-        This podcast app is built with React in the frontend and Django REST Framework in the backend.
+        This SocialMedia app is built with React in the frontend and Django REST Framework in the backend.
       </p>
       <p>
-        React is a JavaScript library for building user interfaces, and it's used here to create a responsive and interactive frontend for the podcast app.
+        React is a JavaScript library for building user interfaces, and it's used here to create a responsive and interactive frontend for the SocialMedia app.
       </p>
       <p>
-        Django REST Framework is a powerful and flexible toolkit for building Web APIs with Django. It provides a set of tools and functionalities to easily create RESTful APIs that the frontend interacts with to fetch and manipulate podcast data.
+        Django REST Framework is a powerful and flexible toolkit for building Web APIs with Django. It provides a set of tools and functionalities to easily create RESTful APIs that the frontend interacts with to fetch and manipulate SocialMedia data.
       </p>
       <p>
-        Together, React and Django REST Framework make it possible to create a seamless and efficient podcast app that delivers a great user experience.
+        Together, React and Django REST Framework make it possible to create a seamless and efficient SocialMedia app that delivers a great user experience.
       </p>
     </div>
     </>

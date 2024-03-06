@@ -7,22 +7,18 @@ import { useNavigate,useParams } from 'react-router-dom';
 function AddPodcast({user1}){
     const navigate = useNavigate();
     const [user,setUser] = useState('')
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('')
-    const [speakername, setSpeakername] = useState('')
+    const [content, setcontent] = useState('')
     const [imagefile,setimagefile] = useState(null)
-    const [audiofile,setaudiofile] = useState(null)
     const [id,setId] = useState('')
     const [editPodcastdata,setEditpodcastdata] = useState([]);
     const {editID} = useParams()
-    const baseurl = 'http://localhost:8000';
-    const production_url = 'https://hearlitpodcast.onrender.com';
+    const production_url = 'https://socialify-backend.onrender.com';
     useEffect(()=>{
         setUser(user1)
         if(editID){
             setId(editID);
             EditPodcastData().then();
-            console.log(title," - ",description," - ",speakername," getfunction2")
+            console.log(" - ",content," - "," getfunction2")
         }
     },[user,editID]);
     async function EditPodcastData(){
@@ -43,21 +39,18 @@ function AddPodcast({user1}){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(title," - ",description," - ",speakername," getfunction3")
+        console.log(" - ",content," - "," getfunction3")
         const formData = new FormData();
-        formData.append('formuser', user);
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('speakername',speakername);
-        formData.append('imagefile', imagefile);
-        formData.append('audiofile', audiofile);
+        formData.append('email', user);
+        formData.append('content', content);
+        for (const file of imagefile) {
+            formData.append('photos', file);
+        }
         if(editID){
             const editformData = {
-                "title": title==='' ? editPodcastdata.title : title,
-                "description": description==='' ? editPodcastdata.description : description,
-                "speaker": speakername===''? editPodcastdata.speaker: speakername,
+                "content": content==='' ? editPodcastdata.content : content
               };
-            const url = `${production_url}/api-podcast/podcast/update/${editID}`;
+            const url = `${production_url}/post/create`;
             const response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(editformData),
@@ -76,7 +69,7 @@ function AddPodcast({user1}){
             console.log(editPodcastdata," value of editPodcastdata")
         }
         else{
-            const url = `${production_url}/api-podcast/podcast/add/`;
+            const url = `${production_url}/post/create`;
             const response = await fetch(url, {
                 method: 'POST',
                 body: formData,
@@ -99,80 +92,38 @@ function AddPodcast({user1}){
         {/* <Header user={user1} /> */}
         <Container>
                 <div className="podcast_form my-5">
-                {id===''?<h3>Add your podcast</h3>:<h3>Edit Your Podcast Details</h3>}
+                {id===''?<h3>Add your post</h3>:<h3>Edit Your Post Details</h3>}
                 <Form onSubmit={(e)=>{handleSubmit(e)}}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
-                        type="text"
-                        required
-                        name="title"
-                        defaultValue={id && editPodcastdata.title}
-                        placeholder='Enter Your Title'
-                        onChange={(e)=>{setTitle(e.target.value)}}
-                    >
-                    </Form.Control>
-                </Form.Group>
+                
                 {
                 id===''?<Form.Group className="mb-3">
-                    {id && (<img style={{"height":"5rem","width":"5rem"}} src={`${production_url}${editPodcastdata.thumbnail}`} />) }
-                    <Form.Label>{id===''?"Add Thumbnail":"Current Thumbnail"}</Form.Label>
+                    {id && (<img style={{"height":"5rem","width":"5rem"}} src={`${production_url}${editPodcastdata.photos}`} />) }
+                    <Form.Label>{id===''?"Add Photos":"Current Photos"}</Form.Label>
                     <Form.Control
                         type="file"
                         {...id===''?"required":{}}
                         name="thumbnail"
-                        placeholder={id===''?"Add your Thumbnail":"Add new thumbnail"}
+                        placeholder={id===''?"Edit your Photos":"Add new Photos"}
                         defaultValue={""}
-                        onChange={(e)=>{setimagefile(e.target.files[0])}}
+                        onChange={(e)=>{setimagefile(e.target.files)}}
+                        multiple
                     >
                     </Form.Control>
-                </Form.Group>:<div><p>Currently <strong>thumbnail</strong> can't be edit</p></div>
+                </Form.Group>:<div><p>Currently <strong>Photos</strong> can't be edit</p></div>
                 }
                 <Form.Group className="mb-3">
-                    <Form.Label>Description</Form.Label>
+                    <Form.Label>Describe Your Post</Form.Label>
                     <Form.Control
                         as="textarea"
                         {...id===''?"required":{}}
-                        name="description"
-                        placeholder='Add description'
-                        defaultValue={id && editPodcastdata.description}
-                        onChange={(e)=>{setDescription(e.target.value)}}
+                        name="content"
+                        placeholder='Add content'
+                        defaultValue={id && editPodcastdata.content}
+                        onChange={(e)=>{setcontent(e.target.value)}}
                     >
                     </Form.Control>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Speaker Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        {...id===''?"required":{}}
-                        name="speakername"
-                        placeholder='speakername'
-                        defaultValue={id && editPodcastdata.speaker}
-                        onChange={(e)=>{setSpeakername(e.target.value)}}
-                    >
-                    </Form.Control>
-                </Form.Group>
-                {
-                id===''?<Form.Group className="mb-3">
-                    <Form.Label>{id===''?"Add File":"Edit File"}</Form.Label>
-                    {id && ( <div className="edit-form-user">
-                        <p>Current Audio</p>
-                        <audio  src={`${production_url}${editPodcastdata.file}`} controls/> 
-                    </div>)
-                    
-
-                   }
-                    <Form.Control
-                        type="file"
-                        {...id===''?"required":{}}
-                        name="podcastfile"
-                        placeholder='podcastfile'
-                        defaultValue={""}
-                        onChange={(e)=>{setaudiofile(e.target.files[0])}}
-                    >
-                    </Form.Control>
-                </Form.Group>:<div><p>Currently <strong>Audio File</strong> can't be edit</p></div>
-                }
+                
                 <Button varient="primary" type="submit" className="submitButton">
                     {id===''?"Submit":"Save Edit"}
                 </Button>

@@ -4,6 +4,8 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Header from '../components/Header';
 import axios from '../api/axios';
 import Podcasts from '../components/podcastCards';
+import Post from '../components/postComponent';
+import SmallCard from '../components/userCard1';
 import favPodcast from './favPodcast';
 // import './app.css';
 import Cookies from 'js-cookie';
@@ -17,16 +19,16 @@ function Home() {
   const [isSearch, setIsSearch] = useState(false);
   const [user, setUser] = useState('');
   const [meraToken,setMeraToken] = useState('None')
-  const production_url = 'https://hearlitpodcast.onrender.com';
+  const production_url = 'https://socialify-backend.onrender.com';
   async function popularPodcast() {
-    const response = await fetch(`${production_url}/api-podcast/podcastFav/${user}/`);
+    const response = await fetch(`${production_url}/post/get_user_post/${user}/`);
     const content = await response.json();
     console.log(content);
     setfavdata(content);
     console.log(setfavdata, "This is setfavdata variable");
   }
   async function favPodcast() {
-    const response = await fetch(`${production_url}/api-podcast/popular`);
+    const response = await fetch(`${production_url}/post/get_user_post/${user}`);
     const content = await response.json();
     console.log(content);
     setPopulardata(content);
@@ -36,7 +38,7 @@ function Home() {
   async function handleSearch(e) {
     e.preventDefault();
     setIsSearch(true);
-    const response = await fetch(`${production_url}/api-podcast/podcast/?search=${search}`);
+    const response = await fetch(`${production_url}/search/user/${search}`);
     const content = await response.json();
     setPodcast(content);
     console.log(podcast, "This is Searched podcasts");
@@ -100,16 +102,10 @@ function Home() {
           </Col>
         </Row>
       </Container>
-      <h1 className="text-center">Hello {name}!</h1>
+      {isSearch
+              ?(<h1 className="text-center">Search Result</h1>):(<h1 className="text-center">Post Feed</h1>)}
       <Container>
       <div>
-      <Button
-            className="scroll-buttonleft"
-            variant="light"
-            onClick={() => handleScroll(-600)}
-          >
-            <BsChevronLeft />
-          </Button>
         <div className="horizontal-view">
           <div className="scroll-row">
             {isSearch
@@ -119,33 +115,33 @@ function Home() {
                     md={3}
                     key={podcast.user}
                     style={{ cursor: "pointer", width: '20rem' }} >
-                    <Podcasts post={podcast} email={user.email} key={podcast.postid} />
+                    <SmallCard text={podcast}/>
                   </div>
                 )
               }))
               : (
                 
-                populardata.map((populardata) => {
+                Array.isArray(populardata) && populardata.map((populardata) => {
                 return (
+                  <div  className="popularposts">
+                  <div className="popularpostsLeft"></div>
                   <div
-                    // md={3} 
-                    key={populardata.user}
-                    style={{ cursor: "pointer", width: '20rem' }}
+                    className="popularpostsCenter"
+                    key={populardata.postid}
+                    style={{ cursor: "pointer", width: '45rem' }}
                   >
-                    <Podcasts post={populardata} email={user} />
-                    
-                  </div>)
+                    <Post post={populardata} email={user} />
+                    {/* <h3>Hello</h3> */}
+                  </div>
+                  <div className="popularpostsRight"></div>
+                  </div>
+                  )
                 }))
+                
             }
           </div>
+          
         </div>
-        <Button
-            className="scroll-buttonright"
-            variant="light"
-            onClick={() => handleScroll(600)}
-          >
-            <BsChevronRight />
-          </Button>
 
           {favdata.length > 0 && (
           

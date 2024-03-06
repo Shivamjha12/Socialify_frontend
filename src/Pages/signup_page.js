@@ -10,7 +10,7 @@ function Signup(){
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
     const [confirmpassword,setConfirmpassword]= useState('');
-    const production_url = 'https://hearlitpodcast.onrender.com';
+    const production_url = 'https://socialify-backend.onrender.com';
 
     const onSubmit = async (e)=>{
         e.preventDefault();
@@ -31,7 +31,7 @@ function Signup(){
         });
         const content = await response.json();
         console.log(content);
-        alert("Successfully Registered You Can Login Now");
+        alert("Successfully Registered | Verification Email sent to your account");
         navigate('/login');
         
     }
