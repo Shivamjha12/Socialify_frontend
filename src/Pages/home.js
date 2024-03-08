@@ -18,7 +18,7 @@ function Home() {
   const [search, setSearch] = useState('');
   const [isSearch, setIsSearch] = useState(false);
   const [user, setUser] = useState('');
-  const [meraToken,setMeraToken] = useState('None')
+  const [meraToken,setMeraToken] = useState('None');
   const production_url = 'https://socialify-backend.onrender.com';
   async function popularPodcast() {
     const response = await fetch(`${production_url}/post/get_user_post/${user}/`);
@@ -28,7 +28,7 @@ function Home() {
     console.log(setfavdata, "This is setfavdata variable");
   }
   async function favPodcast() {
-    const response = await fetch(`${production_url}/post/get_user_post/${user}`);
+    const response = await fetch(`${production_url}/post/get_user_feed/${user}`);
     const content = await response.json();
     console.log(content);
     setPopulardata(content);
@@ -115,7 +115,7 @@ function Home() {
                     md={3}
                     key={podcast.user}
                     style={{ cursor: "pointer", width: '20rem' }} >
-                    <SmallCard text={podcast}/>
+                    <SmallCard user={user} text={podcast}/>
                   </div>
                 )
               }))

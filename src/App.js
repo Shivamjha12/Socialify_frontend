@@ -2,6 +2,7 @@ import './App.css';
 import React,{ useState,useEffect } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import Login from './Pages/login_page';
+import FriendPage from './Pages/friends';
 import AboutPage from './Pages/about';
 import Profile from './components/profile'
 import Signup from './Pages/signup_page';
@@ -93,7 +94,8 @@ function App() {
     <Routes>
     <Route path="/about" element={<AboutPage user={user} />}/> 
     <Route path="/mypodcasts" element={<Userpodcasts user={user} />}/> 
-    <Route path="/addpodcast" element={<AddPodcast user1={user} />}/> 
+    <Route path="/addpost" element={<AddPodcast user1={user} />}/>
+    <Route path="/friends" element={<FriendPage user={user} />}/>  
     <Route path="/editpodcast/:editID" element={<AddPodcast user1={user} />}/> 
     <Route path="/" element={user==='notUser'?(<Login/>):(<Home/>)}/> 
     <Route path="/register" element= {user==='notUser'?(<Signup/>):(<Home/>)}/>

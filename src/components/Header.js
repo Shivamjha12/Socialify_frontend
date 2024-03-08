@@ -3,6 +3,7 @@ import { Navbar,Nav, Container,Row, Col } from "react-bootstrap";
 import Logo from "../assets/Logo.png";
 import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
+
 function Header({user}) {
     const navigate = useNavigate();
     const production_url = 'https://socialify-backend.onrender.com';
@@ -42,8 +43,9 @@ function Header({user}) {
               <Nav.Link onClick={(e)=>{navigate(`/`)}}>Feed</Nav.Link>
               <Nav.Link onClick={(e)=>{navigate(`/profile/${user}`)}}>Profile</Nav.Link>
               <Nav.Link onClick={(e)=>{navigate('/mypodcasts')}}>Your Post</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate('/friends')}}>Friends</Nav.Link>
               <Nav.Link onClick={(e)=>{navigate('/mypodcasts')}}>Chat</Nav.Link>
-              <Nav.Link onClick={(e)=>{navigate('/addpodcast')}}>Add Post</Nav.Link>
+              <Nav.Link onClick={(e)=>{navigate('/addpost')}}>Add Post</Nav.Link>
               <Nav.Link onClick={(e)=>{navigate('/about')}}>About Us</Nav.Link>
               
               <Nav.Link onClick={(e) =>{

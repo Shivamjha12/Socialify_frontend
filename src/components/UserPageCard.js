@@ -9,14 +9,14 @@ function SmallCard({text}){
                     {/* <img className="UserPageCardImage" src={"https://"} alt="image" /> */}
                 </div>
                 <div>
-                    <p>{text}</p>
+                    <p></p>
                 </div>
             </div>
 
             <div className="UserPageCardDiv2">
                 <div className="UserPageCardButton">
                 {/* <SignButton text={"View"} /> */}
-                <h3 className="UserPageCardIntrest">Intrests</h3>
+                <h3 className="UserPageCardIntrest">{text}</h3>
                 </div>
                 {/* <SignButton text={"Edit"} /> */}
             </div>
