@@ -40,7 +40,7 @@ function ProfileForm({ profile,onSubmit }) {
                 alert('Post created successfully!');
             } else { 
                 console.log(response);    
-                alert('Something went wrong!');
+                alert('Something went wrong on server! with HTTP Err', response.status);
              }
 
     // onSubmit({ country, city, shortIntro, description, interests });

@@ -30,6 +30,8 @@ function SignButton({text,user,target}) {
       
   });
     console.log(response,"addfriend Response");
+    if(response.statusCode>=200 && response.statusCode<=299){alert("Friend is added successfully")}
+    else{alert("Added In Friends")}
   }
   return (
     <div>
